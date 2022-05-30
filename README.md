@@ -1,1 +1,0 @@
-# saeedipour-sale-management
