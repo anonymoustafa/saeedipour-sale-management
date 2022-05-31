@@ -1,30 +1,35 @@
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 3000
+import express from 'express';
+import { engine } from 'express-handlebars';
+
+const app = express();
+
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', './views');
 
 app.get('/', (req, res) => {
-res.type('text/plain')
-res.send('Meadowlark Travel');
-})
+    res.render('home');
+});
+
 app.get('/about', (req, res) => {
-res.type('text/plain')
-res.send('About Meadowlark Travel')
-})
+    res.render('home');
+});
+
+app.get('/login', (req, res) => {
+    res.render('home');
+});
 
 // custom 404 page
 app.use((req, res) => {
-res.type('text/plain')
-res.status(404)
-res.send('404 - Not Found')
-})
-// custom 500 page
-app.use((err, req, res, next) => {
-console.error(err.message)
-res.type('text/plain')
-res.status(500)
-res.send('500 - Server Error')
-})
-app.listen(port, () => console.log(
-`Express started on http://localhost:${port}; ` +
-`press Ctrl-C to terminate.`))
+    res.status(404)
+    res.render('404')
+    })
 
+    // custom 500 page
+app.use((err, req, res, next) => {
+    console.error(err.message)
+    res.status(500)
+    res.render('500')
+    })
+
+app.listen(3000);
