@@ -16,14 +16,15 @@ app.get("/home", (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-        res.render("about");
+const randomFortune = fortunes[Math.floor(Math.random()*fortunes.length)]
+res.render('about', { fortune: randomFortune })
 });
 
 app.get("/login", (req, res) => {
         res.render("login");
 });
 
-app.use(express.static(__dirname+"./public"))
+app.use(express.static(__dirname+"/public"))
 
 // custom 404 page
 app.use((req, res) => {
@@ -38,3 +39,11 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(3000);
+
+const fortunes = [
+"Conquer your fears or they will conquer you.",
+"Rivers need springs.",
+"Do not fear what you don't know.",
+"You will have a pleasant surprise.",
+"Whenever possible, keep it simple.",
+]
